@@ -97,7 +97,7 @@ int d_ip2_res_mpc_hard_libstr(int *kk, int k_max, double mu0, double mu_tol, dou
 	// indeces
 // printf("Free heap size: %d\n",esp_get_free_heap_size()); // for debug
 	int jj, ll, ii, it_ref;
-printf("Free heap size: %d\n",esp_get_free_heap_size()); // for debug
+// printf("Free heap size: %d\n",esp_get_free_heap_size()); // for debug
 
 	struct d_strmat *hsmatdummy;
 	struct d_strvec *hsvecdummy;
