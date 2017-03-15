@@ -30,7 +30,7 @@
 #include <stdlib.h>
 
 #include "aux_d.h"
-
+#include "blasfeo_d_aux.h"
 /************************************************
  matrix-matrix multiplication
 ************************************************/

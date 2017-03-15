@@ -45,6 +45,7 @@
 #include "block_size.h"
 #include "mpc_aux.h"
 #include "d_blas_aux.h"
+#include "esp_system.h"
 
 
 // use iterative refinement to increase accuracy of the solution of the equality constrained sub-problems
@@ -99,8 +100,8 @@ int d_ip2_res_mpc_hard_libstr(int *kk, int k_max, double mu0, double mu_tol, dou
 	int jj, ll, ii, it_ref;
 printf("Free heap size: %d\n",esp_get_free_heap_size()); // for debug
 
-	struct d_strmat *hsmatdummy;
-	struct d_strvec *hsvecdummy;
+	struct d_strmat *hsmatdummy = NULL;
+	struct d_strvec *hsvecdummy = NULL;
 // printf("d_ip2_res_hard_libstr.c, line 103\n"); // debug
 	// TODO do not use variable size arrays !!!!!
 	struct d_strvec hsb[N];
@@ -128,7 +129,7 @@ printf("Free heap size: %d\n",esp_get_free_heap_size()); // for debug
 	struct d_strvec hslam_bkp[N+1];
 
 	void *d_back_ric_rec_work_space;
-	void *d_res_res_mpc_hard_work_space;
+	void *d_res_res_mpc_hard_work_space = NULL;
 
 	char *c_ptr = work;
 // printf("d_ip2_res_hard_libstr.c, line 133\n"); // debug

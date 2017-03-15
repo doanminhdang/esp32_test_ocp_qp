@@ -103,7 +103,7 @@ void d_res_res_mpc_hard_libstr(int N, int *nx, int *nu, int *nb, int **idxb, int
 	ptr_rq = hsrq[ii].pa;
 	ptr_rb = hsrb[ii].pa;
 
-	if(nb0>0 | ng0>0)
+	if(nb0>0 || ng0>0)
 		{
 		ptr_d = hsd[ii].pa;
 		ptr_lam = hslam[ii].pa;
@@ -203,7 +203,7 @@ void d_res_res_mpc_hard_libstr(int N, int *nx, int *nu, int *nb, int **idxb, int
 		ptr_rq = hsrq[ii].pa;
 		ptr_rb = hsrb[ii].pa;
 
-		if(nb0>0 | ng0>0)
+		if(nb0>0 || ng0>0)
 			{
 			ptr_d = hsd[ii].pa;
 			ptr_lam = hslam[ii].pa;
@@ -302,7 +302,7 @@ void d_res_res_mpc_hard_libstr(int N, int *nx, int *nu, int *nb, int **idxb, int
 	ptr_pi = hspi[ii].pa;
 	ptr_rq = hsrq[ii].pa;
 
-	if(nb0>0 | ng0>0)
+	if(nb0>0 || ng0>0)
 		{
 		ptr_d = hsd[ii].pa;
 		ptr_lam = hslam[ii].pa;

@@ -246,7 +246,7 @@ void kernel_sgemm_nt_4x4_vs_lib4(int kmax, float *alpha, float *A, float *B, flo
 	c_23 = beta[0]*C[2+bs*3] + alpha[0]*c_23;
 	c_33 = beta[0]*C[3+bs*3] + alpha[0]*c_33;
 
-	store:
+	// store:
 
 	if(km>=4)
 		{
@@ -578,7 +578,7 @@ void kernel_sgemm_nn_4x4_vs_lib4(int kmax, float *alpha, float *A, float *B, int
 	c_23 = beta[0]*C[2+bs*3] + alpha[0]*c_23;
 	c_33 = beta[0]*C[3+bs*3] + alpha[0]*c_33;
 
-	store:
+	// store:
 
 	if(km>=4)
 		{
@@ -910,7 +910,7 @@ void kernel_ssyrk_nt_l_4x4_vs_lib4(int kmax, float *alpha, float *A, float *B, f
 //	c_23 = beta[0]*C[2+bs*3] + alpha[0]*c_23;
 	c_33 = beta[0]*C[3+bs*3] + alpha[0]*c_33;
 
-	store:
+	// store:
 
 	if(km>=4)
 		{

@@ -469,7 +469,7 @@ void dtrsv_lnn_libstr(int m, int n, struct d_strmat *sA, int ai, int aj, struct 
 	double *dA = sA->dA;
 	double *x = sx->pa + xi;
 	double *z = sz->pa + zi;
-	if(ai==0 & aj==0)
+	if(ai==0 && aj==0)
 		{
 		if(sA->use_dA!=1)
 			{
@@ -595,7 +595,7 @@ void dtrsv_ltn_libstr(int m, int n, struct d_strmat *sA, int ai, int aj, struct 
 	double *dA = sA->dA;
 	double *x = sx->pa + xi;
 	double *z = sz->pa + zi;
-	if(ai==0 & aj==0)
+	if(ai==0 && aj==0)
 		{
 		if(sA->use_dA!=1)
 			{

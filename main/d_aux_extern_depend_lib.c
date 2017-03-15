@@ -487,7 +487,7 @@ void d_free_strvec(struct d_strvec *sa)
 void d_print_strmat(int m, int n, struct d_strmat *sA, int ai, int aj)
 	{
 	// TODO ai
-	if(ai!=0 | aj!=0)
+	if(ai!=0 || aj!=0)
 		{
 		printf("\nfeature not implemented yet\n\n");
 		exit(1);
@@ -525,7 +525,7 @@ void d_print_tran_strvec(int m, struct d_strvec *sa, int ai)
 void d_print_to_file_strmat(FILE * file, int m, int n, struct d_strmat *sA, int ai, int aj)
 	{
 	// TODO ai
-	if(ai!=0 | aj!=0)
+	if(ai!=0 || aj!=0)
 		{
 		printf("\nfeature not implemented yet\n\n");
 		exit(1);
@@ -563,7 +563,7 @@ void d_print_tran_to_file_strvec(FILE * file, int m, struct d_strvec *sa, int ai
 void d_print_e_strmat(int m, int n, struct d_strmat *sA, int ai, int aj)
 	{
 	// TODO ai
-	if(ai!=0 | aj!=0)
+	if(ai!=0 || aj!=0)
 		{
 		printf("\nfeature not implemented yet\n\n");
 		exit(1);
