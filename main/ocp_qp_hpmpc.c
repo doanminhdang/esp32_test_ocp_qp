@@ -104,7 +104,10 @@ int ocp_qp_hpmpc(ocp_qp_in *qp_in, ocp_qp_out *qp_out, ocp_qp_hpmpc_args *hpmpc_
     // memory for stat
     size_t addr = ( ( (size_t) workspace) + 7) / 8 * 8;  // align to 8-byte boundaries
     double *ptr_double = (double *) addr;
+    // printf("Pointer ptr_double: %p \n",ptr_double);
     double *stat = ptr_double;
+    // printf("Pointer stat: %p \n",stat);
+    // printf("Value stat[0]: %f \n",stat[0]);
     ptr_double += 5*k_max;
     for (ii = 0; ii < 5*k_max; ii++) stat[ii] = 0.0;  // zero
 
