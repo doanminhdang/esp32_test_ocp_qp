@@ -541,6 +541,7 @@ int main() {
     printf("\n");
     printf(" Average solution time over %d runs: %5.2e seconds\n", nrep, time);
     printf("\n\n");
+    free(workspace);
 
     /************************************************
     * solver arguments (partial condensing)
@@ -640,7 +641,7 @@ int main() {
     }
     d_free(hx[N]);
 
-    free(workspace);
+    // free(workspace);
     free(workspace_part_cond);
 
     return 0;

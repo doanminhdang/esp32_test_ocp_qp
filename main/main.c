@@ -27,7 +27,7 @@
 #include "types.h"
 
 // define IP solver arguments && number of repetitions
-#define NREP 2
+#define NREP 10
 #define MAXITER 10
 #define TOL 1e-8
 #define MINSTEP 1e-8
@@ -127,8 +127,33 @@ esp_err_t event_handler(void *ctx, system_event_t *event)
     return ESP_OK;
 }
 
+void main_memory_task(void *pv)
+{
+  // result on board Nano32 running ESP32:
+  //  More stack size == less heap size for malloc(). Their sum is about 180 kB.
+
+  unsigned long occupy_heap_size=1024;
+
+  // void *dump_heap_size = malloc(occupy_heap_size); // for debug 115111: already big
+  while(1) {
+    int *dump_heap_size = malloc(occupy_heap_size);
+    if(dump_heap_size == NULL) {
+      printf("Pointer %p, failed to allocate %lu bytes.\n", dump_heap_size, occupy_heap_size);
+      break;
+    }
+    else {
+    printf("Pointer %p, Allocated %lu bytes.\n", dump_heap_size, occupy_heap_size);
+    free(dump_heap_size);
+    occupy_heap_size += 1024;
+    }
+  }
+}
+
 void main_task(void *pv)
 {
+  int occupy_heap_size = 159000; // for this problem, HPMPC with partial condensing need about 158xxx bytes for work space
+  void *dump_heap_size = malloc(occupy_heap_size); // for debug 115111: already big
+  printf("\n Allocated %d bytes, at pointer %p",occupy_heap_size,dump_heap_size);
     int loopnumber = 0; // for debug
 
     /* Begin acados code */
@@ -508,22 +533,24 @@ void main_task(void *pv)
         /************************************************
         * work space (fully sparse)
         ************************************************/
-
+        int return_value;
+        struct timeval tv0, tv1;
+if (0) {
         int work_space_size =
             ocp_qp_hpmpc_workspace_size_bytes(N, nxx, nuu, nbb, ngg, hidxb, &hpmpc_args);
         printf("\nwork space size: %d bytes\n", work_space_size);
-
-        void *workspacefirst = malloc(work_space_size);
-
-        printf("Workspace allocated, line 533\n"); // debug
+        printf("Free heap size: %d\n",esp_get_free_heap_size()); // for debug
+        free(dump_heap_size); // free the contiguous block in the heap created before
+        void *workspace = malloc(work_space_size);
+        printf("\nPointer to workspace: workspace=%p\n", workspace);
 
         /************************************************
         * call the solver (fully sparse)
         ************************************************/
 
-        int return_value;
+        // int return_value;
 
-        struct timeval tv0, tv1;
+        // struct timeval tv0, tv1;
         gettimeofday(&tv0, NULL);  // stop
         printf("gettimeofday, line 544\n"); // debug
 
@@ -531,7 +558,7 @@ void main_task(void *pv)
             printf("Iteration %d \n", rep); // debug
 
             // call the QP OCP solver
-            return_value = ocp_qp_hpmpc(&qp_in, &qp_out, &hpmpc_args, workspacefirst);
+            return_value = ocp_qp_hpmpc(&qp_in, &qp_out, &hpmpc_args, workspace);
         }
 
         gettimeofday(&tv1, NULL);  // stop
@@ -562,16 +589,18 @@ void main_task(void *pv)
         printf("\n");
         printf(" Average solution time over %d runs: %5.2e seconds\n", nrep, time);
         printf("\n\n");
-
+        // free allocated memory for work space
+        free(workspace);
+}
         /************************************************
         * solver arguments (partial condensing)
         ************************************************/
+        // void *dump_heap_size = malloc(occupy_heap_size); // for debug 115111: already big
+        // printf("\n Allocated %d bytes, at pointer %p",occupy_heap_size,dump_heap_size);
 
         // solver arguments
         hpmpc_args.N2 = N2;
 
-        // free allocated memory for work space
-        // free(workspacefirst);
 
         /************************************************
         * work space (partial condensing)
@@ -580,8 +609,13 @@ void main_task(void *pv)
         int work_space_size_part_cond =
             ocp_qp_hpmpc_workspace_size_bytes(N, nxx, nuu, nbb, ngg, hidxb, &hpmpc_args);
         printf("\nwork space size: %d bytes\n", work_space_size_part_cond);
-
+        printf("Free heap size: %d\n",esp_get_free_heap_size()); // for debug 231296
+        free(dump_heap_size); // free the contiguous block in the heap created before
         void *workspace_part_cond = malloc(work_space_size_part_cond);
+        // void *workspace_part_cond = malloc(123456); // for debug 115111: already big
+        // printf("Work space to alloc: 123456\n"); // for debug
+        printf("\nPointer to workspace: workspace_part_cond=%p\n", workspace_part_cond);
+        printf("Free heap size left: %d\n",esp_get_free_heap_size()); // for debug
 
         /************************************************
         * call the solver (partial condensing)
@@ -690,6 +724,6 @@ void app_main(void)
     // ESP_ERROR_CHECK( esp_wifi_set_config(WIFI_IF_STA, &sta_config) );
     // ESP_ERROR_CHECK( esp_wifi_start() );
     // ESP_ERROR_CHECK( esp_wifi_connect() );
-    xTaskCreate(main_task, "main", 20*1024, NULL, 5, NULL);
-
+    xTaskCreate(main_task, "main", 10*1024, NULL, 5, NULL);
+    // xTaskCreate(main_memory_task, "main_memory", 10*1024, NULL, 5, NULL);
 }
