@@ -15,8 +15,13 @@ TARGET = GENERIC
 
 # Compiler
 CC = gcc
-CFLAGS = -std=c99 -Wextra -Wno-error -O2 -fPIC -march=native
-# -Wall
+CFLAGS = -std=c99 -Wall -Wextra -O2 -fPIC -march=native \
+-Wno-implicit-function-declaration \
+-Wno-unused-variable \
+-Wno-unused-label \
+-Wno-unused-parameter \
+-Wno-parentheses
+# -Wall -Wno-error
 
 # Project name (binary)
 PROJECT = test_ocp_qp_hpmpc
