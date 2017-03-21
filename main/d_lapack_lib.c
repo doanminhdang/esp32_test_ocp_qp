@@ -65,7 +65,7 @@ void dpotrf_l_libstr(int m, int n, struct d_strmat *sC, int ci, int cj, struct d
 	double *pC = sC->pA + ci + cj*ldc;
 	double *pD = sD->pA + di + dj*ldd;
 	double *dD = sD->dA;
-	if(di==0 & dj==0)
+	if(di==0 && dj==0)
 		sD->use_dA = 1;
 	else
 		sD->use_dA = 0;
@@ -196,7 +196,7 @@ void dsyrk_dpotrf_ln_libstr(int m, int n, int k, struct d_strmat *sA, int ai, in
 	double *pC = sC->pA + ci + cj*ldc;
 	double *pD = sD->pA + di + dj*ldd;
 	double *dD = sD->dA;
-	if(di==0 & dj==0)
+	if(di==0 && dj==0)
 		sD->use_dA = 1;
 	else
 		sD->use_dA = 0;
@@ -374,7 +374,7 @@ void dgetrf_nopivot_libstr(int m, int n, struct d_strmat *sC, int ci, int cj, st
 //	int i1 = 1;
 //	double d1 = 1.0;
 	double
-		d_00_inv, d_11_inv,
+		d_00_inv, d_11_inv = 0,
 		d_00, d_01,
 		d_10, d_11;
 	int ldc = sC->m;
@@ -382,7 +382,7 @@ void dgetrf_nopivot_libstr(int m, int n, struct d_strmat *sC, int ci, int cj, st
 	double *pC = sC->pA + ci + cj*ldc;
 	double *pD = sD->pA + di + dj*ldd;
 	double *dD = sD->dA;
-	if(di==0 & dj==0)
+	if(di==0 && dj==0)
 		sD->use_dA = 1;
 	else
 		sD->use_dA = 0;
@@ -647,7 +647,7 @@ void dgetrf_libstr(int m, int n, struct d_strmat *sC, int ci, int cj, struct d_s
 	double *pC = sC->pA+ci+cj*ldc;
 	double *pD = sD->pA+di+dj*ldd;
 	double *dD = sD->dA;
-	if(di==0 & dj==0)
+	if(di==0 && dj==0)
 		sD->use_dA = 1;
 	else
 		sD->use_dA = 0;
@@ -1048,7 +1048,7 @@ void dpotrf_l_libstr(int m, int n, struct d_strmat *sC, int ci, int cj, struct d
 // dgetrf without pivoting
 void dgetf2_nopivot(int m, int n, double *A, int lda)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int i, j, itmp0, itmp1;
 	int jmax = m<n ? m : n;

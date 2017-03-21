@@ -52,7 +52,7 @@
 // dgemm nt
 void dgemm_nt_libstr(int m, int n, int k, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, double beta, struct d_strmat *sC, int ci, int cj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk;
 	double
@@ -134,7 +134,7 @@ void dgemm_nt_libstr(int m, int n, int k, double alpha, struct d_strmat *sA, int
 // dgemm nn
 void dgemm_nn_libstr(int m, int n, int k, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, double beta, struct d_strmat *sC, int ci, int cj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk;
 	double
@@ -216,7 +216,7 @@ void dgemm_nn_libstr(int m, int n, int k, double alpha, struct d_strmat *sA, int
 // dtrsm_left_lower_nottransposed_unit
 void dtrsm_llnu_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk;
 	double
@@ -338,7 +338,7 @@ void dtrsm_llnu_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, 
 // dtrsm_left_upper_nottransposed_notunit
 void dtrsm_lunn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk, id;
 	double
@@ -351,7 +351,7 @@ void dtrsm_lunn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, 
 	double *pB = sB->pA + bi + bj*ldb;
 	double *pD = sD->pA + di + dj*ldd;
 	double *dA = sA->dA;
-	if(!(sA->use_dA==1 & ai==0 & aj==0))
+	if(!(sA->use_dA==1 && ai==0 && aj==0))
 		{
 		// inverte diagonal of pA
 		for(ii=0; ii<m; ii++)
@@ -481,7 +481,7 @@ void dtrsm_lunn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, 
 // dtrsm_right_lower_transposed_unit
 void dtrsm_rltu_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk;
 	int lda = sA->m;
@@ -554,7 +554,7 @@ void dtrsm_rltu_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, 
 // dtrsm_right_lower_transposed_unit
 void dtrsm_rltn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk;
 	int lda = sA->m;
@@ -564,7 +564,7 @@ void dtrsm_rltn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, 
 	double *pB = sB->pA + bi + bj*ldb;
 	double *pD = sD->pA + di + dj*ldd;
 	double *dA = sA->dA;
-	if(ai==0 & aj==0)
+	if(ai==0 && aj==0)
 		{
 		if(sA->use_dA!=1)
 			{
@@ -680,7 +680,7 @@ void dtrsm_rutn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, 
 // dtrmm_right_upper_transposed_notunit (B triangular !!!)
 void dtrmm_rutn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, double beta, struct d_strmat *sC, int ci, int cj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk;
 	double
@@ -769,7 +769,7 @@ void dtrmm_rutn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, 
 // dtrmm_right_lower_nottransposed_notunit (B triangular !!!)
 void dtrmm_rlnn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, double beta, struct d_strmat *sC, int ci, int cj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk;
 	double
@@ -858,7 +858,7 @@ void dtrmm_rlnn_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, 
 // dsyrk_lower_nortransposed (allowing for different factors => use dgemm !!!)
 void dsyrk_ln_libstr(int m, int n, int k, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strmat *sB, int bi, int bj, double beta, struct d_strmat *sC, int ci, int cj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj, kk;
 	double

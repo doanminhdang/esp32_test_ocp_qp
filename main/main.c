@@ -533,6 +533,7 @@ void main_task(void *pv)
         /************************************************
         * work space (fully sparse)
         ************************************************/
+
         int return_value;
         struct timeval tv0, tv1;
 if (0) {
@@ -548,9 +549,6 @@ if (0) {
         * call the solver (fully sparse)
         ************************************************/
 
-        // int return_value;
-
-        // struct timeval tv0, tv1;
         gettimeofday(&tv0, NULL);  // stop
         printf("gettimeofday, line 544\n"); // debug
 
@@ -575,6 +573,7 @@ if (0) {
 
         // Debug
         printf("\nu = \n");
+
         for (ii = 0; ii < N; ii++) d_print_mat(1, nuu[ii], hu[ii], 1);
 
         printf("\nx = \n");
@@ -589,6 +588,7 @@ if (0) {
         printf("\n");
         printf(" Average solution time over %d runs: %5.2e seconds\n", nrep, time);
         printf("\n\n");
+
         // free allocated memory for work space
         free(workspace);
 }
@@ -609,6 +609,7 @@ if (0) {
         int work_space_size_part_cond =
             ocp_qp_hpmpc_workspace_size_bytes(N, nxx, nuu, nbb, ngg, hidxb, &hpmpc_args);
         printf("\nwork space size: %d bytes\n", work_space_size_part_cond);
+
         printf("Free heap size: %d\n",esp_get_free_heap_size()); // for debug 231296
         free(dump_heap_size); // free the contiguous block in the heap created before
         void *workspace_part_cond = malloc(work_space_size_part_cond);

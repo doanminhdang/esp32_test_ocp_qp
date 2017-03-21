@@ -41,7 +41,7 @@
 // dgemm with A diagonal matrix (stored as strvec)
 void dgemm_l_diag_libstr(int m, int n, double alpha, struct d_strvec *sA, int ai, struct d_strmat *sB, int bi, int bj, double beta, struct d_strmat *sC, int ci, int cj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj;
 	int ldb = sB->m;
@@ -104,7 +104,7 @@ void dgemm_l_diag_libstr(int m, int n, double alpha, struct d_strvec *sA, int ai
 // dgemm with B diagonal matrix (stored as strvec)
 void dgemm_r_diag_libstr(int m, int n, double alpha, struct d_strmat *sA, int ai, int aj, struct d_strvec *sB, int bi, double beta, struct d_strmat *sC, int ci, int cj, struct d_strmat *sD, int di, int dj)
 	{
-	if(m<=0 | n<=0)
+	if(m<=0 || n<=0)
 		return;
 	int ii, jj;
 	int lda = sA->m;
